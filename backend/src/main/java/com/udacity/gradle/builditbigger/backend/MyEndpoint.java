@@ -22,13 +22,13 @@ import javalibrary.four.gradle.udacity.com.jokelib.JokeMaker;
 public class MyEndpoint {
 
     /** A simple endpoint method that takes a name and says Hi back */
-    /*@ApiMethod(name = "sayHi")
+    @ApiMethod(name = "sayHi")
     public MyBean sayHi(@Named("name") String name) {
         MyBean response = new MyBean();
         response.setData(new JokeMaker().getJoke());
 
         return response;
-    }*/
+    }
 
     @ApiMethod(name = "fetchJoke", httpMethod = ApiMethod.HttpMethod.GET)
     public MyBean getJoke() {
