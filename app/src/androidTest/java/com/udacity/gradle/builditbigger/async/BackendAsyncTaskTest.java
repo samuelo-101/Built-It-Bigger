@@ -15,6 +15,8 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class BackendAsyncTaskTest {
 
+    BackendAsyncTask.ApiResponse apiResponse;
+
     @Test
     public void should_return_non_empty_result() throws ExecutionException, InterruptedException {
         BackendAsyncTask backendAsyncTask = new BackendAsyncTask(new BackendAsyncTask.ApiResponse() {
