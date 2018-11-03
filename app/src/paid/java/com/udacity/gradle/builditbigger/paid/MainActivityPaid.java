@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.udacity.gradle.builditbigger.R;
 import com.udacity.gradle.builditbigger.async.BackendAsyncTask;
@@ -56,8 +57,12 @@ public class MainActivityPaid extends AppCompatActivity implements BackendAsyncT
     @Override
     public void onResponseReceived(String response) {
         mProgressBar.setVisibility(View.GONE);
-        Intent intent = new Intent(getApplicationContext(), javalibrary.four.gradle.udacity.com.androidjokelib.MainActivity.class);
-        intent.putExtra(javalibrary.four.gradle.udacity.com.androidjokelib.MainActivity.JOKE_PARAM, response);
-        startActivity(intent);
+        if(response != null) {
+            Intent intent = new Intent(getApplicationContext(), javalibrary.four.gradle.udacity.com.androidjokelib.MainActivity.class);
+            intent.putExtra(javalibrary.four.gradle.udacity.com.androidjokelib.MainActivity.JOKE_PARAM, response);
+            startActivity(intent);
+        } else {
+            Toast.makeText(getApplicationContext(), getString(R.string.generic_api_error_message), Toast.LENGTH_LONG).show();
+        }
     }
 }

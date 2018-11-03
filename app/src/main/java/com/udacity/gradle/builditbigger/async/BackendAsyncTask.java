@@ -25,7 +25,8 @@ public class BackendAsyncTask extends AsyncTask<Void, Void, String> {
         try {
             return jokesApiService.fetchJoke().execute().getData();
         } catch (IOException e) {
-            return e.getMessage();
+            e.printStackTrace();
+            return null;
         }
     }
 

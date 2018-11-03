@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -62,21 +63,22 @@ public class MainActivityFree extends AppCompatActivity implements BackendAsyncT
 
             @Override
             public void onAdClosed() {
-                // Code to be executed when when the interstitial ad is closed.
+                mProgressBar.setVisibility(View.VISIBLE);
+                new BackendAsyncTask(MainActivityFree.this).execute();
+
+                // Re-load add in case button is clicked more than once.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
             }
         });
 
     }
 
     public void tellJoke(View view) {
-        mProgressBar.setVisibility(View.VISIBLE);
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         } else {
             Log.d(TAG, "Interstitial hasn't fully loaded yet...");
         }
-
-        new BackendAsyncTask(this).execute();
     }
 
     @Override
@@ -104,8 +106,12 @@ public class MainActivityFree extends AppCompatActivity implements BackendAsyncT
     @Override
     public void onResponseReceived(String response) {
         mProgressBar.setVisibility(View.GONE);
-        Intent intent = new Intent(getApplicationContext(), javalibrary.four.gradle.udacity.com.androidjokelib.MainActivity.class);
-        intent.putExtra(javalibrary.four.gradle.udacity.com.androidjokelib.MainActivity.JOKE_PARAM, response);
-        startActivity(intent);
+        if(response != null) {
+            Intent intent = new Intent(getApplicationContext(), javalibrary.four.gradle.udacity.com.androidjokelib.MainActivity.class);
+            intent.putExtra(javalibrary.four.gradle.udacity.com.androidjokelib.MainActivity.JOKE_PARAM, response);
+            startActivity(intent);
+        } else {
+            Toast.makeText(getApplicationContext(), getString(R.string.generic_api_error_message), Toast.LENGTH_LONG).show();
+        }
     }
 }
