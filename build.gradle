@@ -22,9 +22,6 @@ allprojects {
 }
 
 task runTests(dependsOn: [":backend:appengineStart", ":app:connectedAndroidTest", ":backend:appengineStop"]) {
-    doFirst {
-        println 'Launching app engine and running tests...'
-    }
     doLast {
         println 'Tests run completed, and app engine has been shut down.'
     }
