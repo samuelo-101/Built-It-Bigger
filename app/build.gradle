@@ -35,18 +35,18 @@ android {
 
     flavorDimensions 'default'
     productFlavors {
-        free {
-            dimension 'default'
-            applicationId "com.udacity.gradle.builditbigger.paid"
-        }
         paid {
             dimension 'default'
             applicationId "com.udacity.gradle.builditbigger.paid"
         }
+        free {
+            dimension 'default'
+            applicationId "com.udacity.gradle.builditbigger.free"
+        }
     }
 
     lintOptions {
-        disable 'GradleCompatible','GradleCompatible'
+        disable 'GradleCompatible', 'GradleCompatible'
     }
 }
 
